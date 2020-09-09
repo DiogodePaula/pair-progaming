@@ -15,6 +15,7 @@ export default async (req, res, next) => {
     const decoded = jwt.verify(token, authConfig.secret);
 
     req.userUid = decoded.uid;
+    req.userType = decoded.type;
 
     next();
   } catch (error) {

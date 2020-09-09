@@ -46,12 +46,16 @@ class Note extends Model {
     return this;
   }
 
-  // static associate(models) {
-  //   this.belongsTo(models.User, {
-  //     as: 'user',
-  //     foreignKey: 'user_uid',
-  //   });
-  // }
+  static associate(models) {
+    this.belongsTo(models.Teste, {
+      as: 'teste',
+      foreignKey: 'teste_uid',
+    });
+    this.belongsTo(models.User, {
+      as: 'user',
+      foreignKey: 'user_uid',
+    });
+  }
 }
 
 export default Note;

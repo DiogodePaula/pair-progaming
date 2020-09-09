@@ -4,9 +4,9 @@ import databaseConfig from '../config/database';
 
 import User from '../app/models/User';
 import Teste from '../app/models/Teste';
-// import Card from '../app/models/Card';
+import Note from '../app/models/Note';
 
-const models = [User, Teste];
+const models = [User, Teste, Note];
 
 class DataBase {
   constructor() {

@@ -36,12 +36,12 @@ class Teste extends Model {
     return this;
   }
 
-  // static associate(models) {
-  //   this.belongsTo(models.User, {
-  //     as: 'user',
-  //     foreignKey: 'user_uid',
-  //   });
-  // }
+  static associate(models) {
+    this.hasMany(models.Note, {
+      as: 'teste',
+      foreignKey: 'teste_uid',
+    });
+  }
 }
 
 export default Teste;

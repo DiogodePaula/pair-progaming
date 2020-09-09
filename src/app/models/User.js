@@ -55,16 +55,16 @@ class User extends Model {
     return this;
   }
 
-  // checkPassword(password) {
-  //   return bcrypt.compare(password, this.password_hash);
-  // }
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash);
+  }
 
-  // static associate(models) {
-  //   this.hasMany(models.Card, {
-  //     as: 'cards',
-  //     foreignKey: 'user_uid',
-  //   });
-  // }
+  static associate(models) {
+    this.hasMany(models.Note, {
+      as: 'user',
+      foreignKey: 'user_uid',
+    });
+  }
 }
 
 export default User;

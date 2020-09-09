@@ -1,21 +1,27 @@
-import Teste from '../models/Teste';
 import Note from '../models/Note';
+import Teste from '../models/Teste';
+import User from '../models/User';
 
-class TesteController {
+class NoteController {
   async index(req, res) {
     try {
-      const teste = await Teste.findAll({
-        attributes: ['uid', 'matter', 'description'],
+      const note = await Note.findAll({
+        attributes: ['uid', 'note', 'description'],
         include: [
           {
-            model: Note,
+            model: Teste,
             as: 'teste',
-            attributes: ['uid', 'note', 'description', 'user_uid'],
+            attributes: ['uid', 'matter', 'description'],
+          },
+          {
+            model: User,
+            as: 'user',
+            attributes: ['uid', 'name', 'age', 'email', 'phone', 'type'],
           },
         ],
       });
 
-      return res.json({ teste });
+      return res.json({ note });
     } catch (error) {
       return res.json({
         error,
@@ -26,18 +32,18 @@ class TesteController {
   async show(req, res) {
     try {
       const { uid } = req.params;
-      const teste = await Teste.findByPk(uid, {
-        attributes: ['uid', 'matter', 'description'],
+      const note = await Note.findByPk(uid, {
+        attributes: ['uid', 'note', 'description'],
         include: [
           {
-            model: Note,
+            model: Teste,
             as: 'teste',
-            attributes: ['uid', 'note', 'description', 'user_uid'],
+            attributes: ['uid', 'matter', 'description'],
           },
         ],
       });
 
-      return res.json({ teste });
+      return res.json({ note });
     } catch (error) {
       return res.json({ error });
     }
@@ -55,9 +61,9 @@ class TesteController {
 
       // const user = await User.create(req.body);
 
-      const teste = await Teste.create(req.body);
+      const note = await Note.create(req.body);
 
-      return res.json({ teste });
+      return res.json({ note });
     } catch (error) {
       const response = {
         message: 'dados incorretos',
@@ -73,7 +79,7 @@ class TesteController {
 
       const { uid } = req.params;
 
-      const updated = await Teste.update({ where: { uid } });
+      const updated = await Note.update({ where: { uid } });
 
       return res.json({ updated });
     } catch (error) {
@@ -84,7 +90,7 @@ class TesteController {
   async delete(req, res) {
     try {
       const { uid } = req.params;
-      const deleted = await Teste.destroy({ where: { uid } });
+      const deleted = await Note.destroy({ where: { uid } });
       if (!deleted) {
         throw Error('Não encontrado');
       }
@@ -96,4 +102,4 @@ class TesteController {
   }
 }
 
-export default new TesteController();
+export default new NoteController();

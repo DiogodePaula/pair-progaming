@@ -17,6 +17,13 @@ class AuthController {
         return res.status(401).json({ error: 'Senha Invalida' });
       }
 
+      if (req.userType === 1) {
+        const { uid } = req.params;
+        const aluno = await User.findOne({ where: { uid } });
+
+        return res.json({ aluno });
+      }
+
       const { uid, name } = user;
 
       return res.json({

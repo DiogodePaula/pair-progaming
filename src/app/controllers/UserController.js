@@ -1,18 +1,10 @@
 import User from '../models/User';
-// import Card from '../models/Card';
 
 class UserController {
   async index(req, res) {
     try {
       const user = await User.findAll({
-        // attributes: ['uid', 'name', 'email'],
-        // include: [
-        //   {
-        //     model: Card,
-        //     as: 'cards',
-        //     attributes: ['uid', 'title', 'content', 'date', 'hour'],
-        //   },
-        // ],
+        attributes: ['uid', 'name', 'age', 'email', 'phone', 'type'],
       });
 
       return res.json({ user });
@@ -27,7 +19,7 @@ class UserController {
     try {
       const { uid } = req.params;
       const user = await User.findByPk(uid, {
-        // attributes: ['uid', 'name', 'email'],
+        attributes: ['uid', 'name', 'age', 'email', 'phone', 'type'],
         // include: [
         //   {
         //     model: Card,
