@@ -24,13 +24,20 @@ class AuthController {
         return res.json({ aluno });
       }
 
-      const { uid, name } = user;
+      if (req.userType === 2) {
+        const aluno = await User.findAll();
+
+        return res.json({ aluno });
+      }
+
+      const { uid, name, type } = user;
 
       return res.json({
         user: {
           uid,
           name,
           email,
+          type,
         },
         token: jwt.sign({ uid }, authConfig.secret, {
           expiresIn: authConfig.expiresIn,

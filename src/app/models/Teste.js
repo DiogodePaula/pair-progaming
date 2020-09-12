@@ -41,6 +41,11 @@ class Teste extends Model {
       as: 'teste',
       foreignKey: 'teste_uid',
     });
+
+    this.belongsTo(models.User, {
+      as: 'user',
+      foreignKey: 'user_uid',
+    });
   }
 }
 

@@ -52,7 +52,7 @@ class Note extends Model {
       foreignKey: 'teste_uid',
     });
     this.belongsTo(models.User, {
-      as: 'user',
+      as: 'notes',
       foreignKey: 'user_uid',
     });
   }

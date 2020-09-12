@@ -1,10 +1,26 @@
 import User from '../models/User';
+import Note from '../models/Note';
+import Teste from '../models/Teste';
 
 class UserController {
   async index(req, res) {
     try {
       const user = await User.findAll({
         attributes: ['uid', 'name', 'age', 'email', 'phone', 'type'],
+        include: [
+          {
+            model: Teste,
+            as: 'teste',
+            attributes: ['uid', 'matter', 'description'],
+            include: [
+              {
+                model: Note,
+                as: 'teste',
+                attributes: ['uid', 'note', 'description'],
+              },
+            ],
+          },
+        ],
       });
 
       return res.json({ user });
@@ -20,13 +36,20 @@ class UserController {
       const { uid } = req.params;
       const user = await User.findByPk(uid, {
         attributes: ['uid', 'name', 'age', 'email', 'phone', 'type'],
-        // include: [
-        //   {
-        //     model: Card,
-        //     as: 'cards',
-        //     attributes: ['uid', 'title', 'content', 'date', 'hour'],
-        //   },
-        // ],
+        include: [
+          {
+            model: Teste,
+            as: 'teste',
+            attributes: ['uid', 'matter', 'description'],
+            include: [
+              {
+                model: Note,
+                as: 'teste',
+                attributes: ['uid', 'note', 'description'],
+              },
+            ],
+          },
+        ],
       });
 
       return res.json({ user });
@@ -37,16 +60,6 @@ class UserController {
 
   async store(req, res) {
     try {
-      // const { email } = req.body;
-
-      // const userExist = await User.findOne({ where: { email } });
-
-      // if (userExist) {
-      //   throw Error('usuário ja cadastrado');
-      // }
-
-      // const user = await User.create(req.body);
-
       const user = await User.create(req.body);
 
       return res.json({ user });
